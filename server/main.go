@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"blockchain-101/server/handlers"
+	"chain101/server/handlers"
 )
 
 func main() {
