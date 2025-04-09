@@ -1,0 +1,194 @@
+/* General styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  background: #121212; /* Dark background */
+  margin: 0;
+  padding: 0;
+  color: #ffffff; /* Light text for contrast */
+}
+
+/* Top bar */
+#top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1f1f1f; /* Darker shade for the header */
+  color: white;
+  padding: 15px 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+  border-bottom: 1px solid #333; /* Divider effect */
+}
+
+#addBlock {
+  background: #81c784; /* Pastel green */
+  color: #000; /* Dark text for contrast */
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+#addBlock:hover {
+  background: #66bb6a; /* Darker pastel green on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+#stats {
+  display: flex;
+  gap: 30px;
+  font-size: 16px;
+}
+
+#stats p {
+  margin: 0;
+}
+
+/* Blockchain container */
+#blockchain-container {
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Block card */
+.block {
+  border: 1px solid #333; /* Subtle border */
+  border-radius: 15px;
+  padding: 20px;
+  margin: 10px;
+  background: #1e1e1e; /* Slightly lighter than the background */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+  transition: transform 0.3s, box-shadow 0.3s;
+  width: 300px;
+}
+
+.block:hover {
+  transform: translateY(-5px); /* Lift effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5); /* Stronger shadow on hover */
+}
+
+/* Green block - valid */
+.block.valid {
+  border-color: #81c784; /* Pastel green */
+  background: rgba(129, 199, 132, 0.1); /* Transparent pastel green */
+}
+
+/* Red block - invalid */
+.block.invalid {
+  border-color: #e57373; /* Pastel red */
+  background: rgba(229, 115, 115, 0.1); /* Transparent pastel red */
+}
+
+.block label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: bold;
+  color: #ffffff; /* Light text */
+}
+
+.block input,
+.block textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  box-sizing: border-box;
+  border: 1px solid #333; /* Subtle border */
+  border-radius: 5px;
+  font-size: 14px;
+  background: #2a2a2a; /* Darker input background */
+  color: #ffffff; /* Light text */
+}
+
+.block textarea {
+  resize: none;
+  height: 80px;
+}
+
+/* Buttons inside blocks */
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #64b5f6; /* Pastel blue */
+  color: #000; /* Dark text for contrast */
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  background-color: #42a5f5; /* Darker pastel blue on hover */
+  transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Add styles for the remove button */
+button.remove-btn {
+  background-color: #e57373; /* Pastel red */
+}
+
+button.remove-btn:hover {
+  background-color: #ef5350; /* Darker pastel red on hover */
+}
+
+/* Add spacing between Mine and Remove buttons */
+.block button {
+  margin-right: 10px; /* Add spacing between buttons */
+}
+
+.block button:last-child {
+  margin-right: 0; /* Remove margin for the last button */
+}
+
+/* Alert card */
+.alert-card {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  font-size: 16px;
+  font-weight: bold;
+  animation: fadeInOut 3s ease;
+}
+
+.alert-card.warning {
+  background: #ffe082;
+  color: #000;
+}
+
+.alert-card.error {
+  background: #e57373;
+  color: #fff;
+}
+
+.alert-card.default {
+  background: #1e1e1e;
+  color: #fff;
+}
+
+@keyframes fadeInOut {
+  0%, 90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Headings */
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Subtle shadow for text */
+}
