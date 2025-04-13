@@ -1,27 +1,76 @@
-export function logEvent(message) {
-    fetch('/api/logs', {
+const JSON_HEADERS = { 'Content-Type': 'application/json' };
+
+// Update DOM with stats data
+function updateStatsDisplay(data) {
+  document.getElementById('blockCount').textContent = data.blocks || 0;
+  document.getElementById('mineCount').textContent = data.mined || 0;
+}
+
+// Fetch stats only (internal helper)
+function fetchStatsOnly() {
+  return fetch('/api/stats')
+    .then(res => res.json())
+    .then(data => {
+      updateStatsDisplay(data);
+      return data;
+    });
+}
+
+// Main function that handles both updating and fetching stats
+export function updateStats(action, count = 1) {
+  if (!action) {
+    return fetchStatsOnly().catch(() => {});
+  }
+  
+  // Otherwise, update stats on server then display
+  return fetch('/api/stats', {
+    method: 'POST',
+    headers: JSON_HEADERS,
+    body: JSON.stringify({ action, count })
+  })
+  .then(res => res.json())
+  .then(data => {
+    updateStatsDisplay(data);
+    return data;
+  })
+  .catch(() => {
+    fetchStatsOnly().catch(() => {});
+  });
+}
+
+export const fetchStats = () => updateStats();
+
+export async function fetchSessionID() {
+  try {
+      const response = await fetch('/api/blocks');
+      return response.ok ? response.headers.get('X-Session-ID') : null;
+  } catch {
+      return null;
+  }
+}
+
+export async function fetchBlocks() {
+    try {
+        const response = await fetch('/api/blocks');
+        return response.ok ? await response.json() : [];
+    } catch {
+        return [];
+    }
+}
+
+export function saveBlocks(blocks) {
+    fetch('/api/blocks', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ event: message })
-    }).catch(err => console.error("Failed to log event:", err));
-}
-
-export function updateStats(action) {
-    fetch('/api/stats', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action })
+        headers: JSON_HEADERS,
+        body: JSON.stringify(blocks),
     })
-    .then(() => fetchStats())
-    .catch(err => console.error("Failed to update stats:", err));
+    .catch(() => {});
 }
 
-export function fetchStats() {
-    fetch('/api/stats')
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById('blockCount').textContent = data.blocks || 0;
-        document.getElementById('mineCount').textContent = data.mined || 0;
-      })
-      .catch(err => console.error("Failed to load stats:", err));
+export function logEvent(message) {
+  fetch('/api/logs', {
+      method: 'POST',
+      headers: JSON_HEADERS,
+      body: JSON.stringify({ event: message })
+  }).catch(() => {});
 }
